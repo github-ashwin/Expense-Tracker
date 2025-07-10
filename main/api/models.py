@@ -6,7 +6,7 @@ class Expense(models.Model):
 
     title = models.CharField(max_length=255) # A short title for the expense (e.g., Amazon order, Metro ticket).
 
-    amount = models.DecimalField(max_digit=10,decimal_places=2) # The amount spent.
+    amount = models.DecimalField(max_digits=10,decimal_places=2) # The amount spent.
 
     CATEGORY_CHOICES = [
         ('shopping', 'Shopping'),
