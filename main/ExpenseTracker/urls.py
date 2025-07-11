@@ -19,5 +19,6 @@ from django.urls import path
 from api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('expenses/',views.ExpenseView.as_view())
+    path('expenses/',views.ExpenseView.as_view()),
+    path('expenses/<int:pk>/',views.ExpenseSpecificView.as_view())
 ]
