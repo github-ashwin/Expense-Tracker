@@ -28,3 +28,38 @@ class ExpenseView(APIView):
             return Response(data=serializer.data)
         else:
             return Response(data=serializer.errors)
+        
+class ExpenseSpecificView(APIView):
+
+    serializer_class = ExpenseSerializer
+
+    def get(self,request,*args, **kwargs):
+
+        id = kwargs.get('pk')
+        expense = get_object_or_404(Expense,id=id)
+
+        serializer = self.serializer_class(expense,many=False)
+
+        return Response(data=serializer.data)
+    
+    def put(self,request,*args, **kwargs):
+
+        id = kwargs.get('pk')
+        expense = get_object_or_404(Expense,id=id)
+
+        serializer = self.serializer_class(data=request.data,instance=expense)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data)
+        else:
+            return Response(data=serializer.errors)
+        
+    def delete(self,request,*args,**kwargs):
+
+        id = kwargs.get('pk')
+
+        expense = get_object_or_404(Expense, id=id)
+        expense.delete()
+
+        return Response(data={"message":"deleted"})
